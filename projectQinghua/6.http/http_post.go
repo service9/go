@@ -17,5 +17,6 @@ func main() {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body) //读取信息
 	fmt.Println(string(body))
+	fmt.Println("你是猪")
 
 }
