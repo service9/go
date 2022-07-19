@@ -1,0 +1,81 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+// "fmt"
+
+// "package.com/book"
+
+func init() {
+	//包初始化顺序
+	//1、包级别的变量
+	//2、init()函数
+}
+
+func main() {
+	//线程同步
+
+	//waitgroup等到一组任务结束，再执行其他代码
+	// isDone := make(chan bool)
+	// go func() {
+	// 	for i := 0; i < 5; i++ {
+	// 		fmt.Println(i)
+	// 	}
+	// 	isDone <- true
+	// }()
+	// <-isDone
+	// fmt.Println("done")
+
+	//初始化
+	// var wg sync.WaitGroup
+	// //传子通道
+	// wg.Add(3)
+	// go DoTask(1, &wg)
+	// go DoTask(2, &wg)
+	// go DoTask(3, &wg)
+	// //阻塞,等待全部完成
+	// wg.Wait()
+
+	// //通道-双向通道
+	// // ch := make(chan string, 0) //无缓冲通道 不存储数据，会堵塞 缓冲区容量为0
+	// ch := make(chan string, 2) //缓冲通道 正常接收不会堵塞
+	// //发送数据
+	// go PrintChan(ch)//将ch放入携程中
+	// //开启通道 接收数据
+	// value, ok := <-ch //接收数据时，发生阻塞，等待另一条通道数据传输
+	// //关闭通道
+	// if ok {
+	// 	close(ch)
+	// }
+	// fmt.Println(value)
+	// fmt.Println("学习目标", ok)
+
+	// go gossss()
+	// time.Sleep(1 * time.Second)
+	// fmt.Println("函数执行完成")
+
+	// var info, errors = book.ShowBookInfo("你是猪", "你才是猪")
+	// fmt.Println(info, errors)
+
+}
+
+func DoTask(taskNum int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for i := 0; i < 3; i++ {
+		fmt.Printf("task:%d %d\n", taskNum, i)
+	}
+}
+
+func PrintChan(c chan string) {
+	c <- "从0到Go语言微服务"
+	c <- "从0到Go语言微服务"
+}
+
+func gossss() {
+	fmt.Println("函数执行中。。。", 1*time.Second)
+	//time.Millisecond
+}

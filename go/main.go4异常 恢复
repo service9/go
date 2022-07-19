@@ -1,0 +1,23 @@
+package main
+
+import "fmt"
+
+func main() {
+	// myTest()
+	myTest(0)
+	fmt.Println("234")
+}
+
+func myTest(x int) {
+	// defer fmt.Println("defer...")
+	// panic("myTest")
+
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
+
+	}()
+	var array [5]int
+	array[x] = 1
+}

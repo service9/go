@@ -1,0 +1,47 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+func main() {
+	type qinshou struct {
+		Name string
+		Love string
+	}
+	var jsonBytes = []byte(`[
+		{"Name":"name1","Love":"love1"},
+	{"Name":"name2","Love":"love2"}]`)
+	var qs []qinshou
+	err := json.Unmarshal(jsonBytes, &qs) //解码
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%++v", qs)
+}
+
+func main1() {
+	//json bytes
+	type selang struct {
+		Id    int
+		Name  string
+		Girls []string
+	}
+	zhang := selang{
+		Id:   0,
+		Name: "色狼hong",
+		Girls: []string{
+			"A",
+			"B",
+			"C",
+		},
+	}
+	// fmt.Println(zhang)     //{0 色狼hong [A B C]}
+	b, error := json.Marshal(zhang) //转为json字符串
+	if error != nil {
+		fmt.Println(error)
+	}
+	fmt.Println(b)         //[123 34 73 100 34 58 48 44 34 78 97 109 101 34 58 34 232 137 178 231 139 188 104 111 110 103 34 44 34 71 105 114 108 115 34 58 91 34 65 34 44 34 66 34 44 34 67 34 93 125]
+	fmt.Println(string(b)) //{"Id":0,"Name":"色狼hong","Girls":["A","B","C"]}
+}

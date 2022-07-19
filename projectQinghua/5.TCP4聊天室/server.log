@@ -1,0 +1,26 @@
+
+2022/07/20 00:36:05 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:132: 写入日志,服务器正在等待
+
+2022/07/20 00:36:08 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:144: 客户端列表
+
+2022/07/20 00:36:08 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:145: ---------------------------
+
+2022/07/20 00:36:08 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52367
+
+2022/07/20 00:36:49 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:144: 客户端列表
+
+2022/07/20 00:36:49 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:145: ---------------------------
+
+2022/07/20 00:36:49 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52367
+
+2022/07/20 00:36:49 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52374
+
+2022/07/20 00:36:51 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:144: 客户端列表
+
+2022/07/20 00:36:51 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:145: ---------------------------
+
+2022/07/20 00:36:51 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52367
+
+2022/07/20 00:36:51 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52374
+
+2022/07/20 00:36:51 d:/goProj/src/projectQinghua/TCP4聊天室/Server.go:148: 127.0.0.1:52375

@@ -1,0 +1,31 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	//写文件
+	mydata := []byte("hello go \nhello weiwei")
+	file, errCreate := os.Create("2.txt")
+	defer file.Close() //延迟文件关闭
+	nums, errWrite := file.Write(mydata)
+	fmt.Println(nums, errCreate, errWrite)
+}
+
+func main1() {
+	//文件读写
+	//读文件
+	file, err := os.Open("1.txt") //Open首字母大写
+	// file, err := os.Open("main.go1") //Open首字母大写
+	fmt.Println(file, err)
+
+	bytes := make([]byte, 100)            //读取的字符 ，第二个参数是要读取的字符数
+	readBytes, err := file.Read(bytes)    //读取成功的字节数
+	fmt.Println(string(bytes), readBytes) //string(bytes)将读取的字节转为字符串
+
+	file.Seek(0, 0) //移动文件的位置
+
+	file.Close()
+}

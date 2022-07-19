@@ -1,0 +1,80 @@
+package main
+
+import (
+	"fmt"
+)
+
+func area(length, width int) (int, error) {
+	// if length < 0 || width < 0 {
+	// 	// return 0, errors.New("计算错误，changhuozhekuan小于零")
+	// 	// return 0, fmt.Errorf("计算错误,chang%d,kuan%d", a, b)
+	// 	return 0, &areaError{"length or width is negative", length, width} //指针类型
+	// }
+	err := ""
+	if length < 0 {
+		err += "length is negative"
+	}
+	if width < 0 {
+		err += "width is negative"
+	}
+	if err != "" {
+		return 0, &areaError{err, length, width}
+	}
+	return length * width, nil
+}
+
+type areaError struct {
+	err    string
+	length int
+	width  int
+}
+
+func (e *areaError) Error() string {
+	// return fmt.Sprintf("length %d , width %d", e.length, e.width)
+	return e.err
+}
+
+func (e *areaError) lengthNegative() bool {
+	return e.length < 0
+}
+func (e *areaError) widthNegative() bool {
+	return e.width < 0
+}
+
+// type errorString struct {
+// 	s string
+// }
+
+// func New(text string) error {
+// 	return &errorString{s: text}
+// }
+
+// func (e *errorString) Error() string {
+// 	return e.s
+// }
+
+func main() {
+	// var res, err = area(-1, 4)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// fmt.Println(res)
+
+	var res, err = area(-99, -4)
+	if err != nil {
+		if err, ok := err.(*areaError); ok {
+			if err.lengthNegative() {
+				fmt.Println("length错误了", err.length)
+			}
+			if err.widthNegative() {
+				fmt.Println("width错误了", err.width)
+			}
+			return
+		}
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(res)
+
+}

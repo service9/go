@@ -1,0 +1,96 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/signal"
+	"sync"
+	"time"
+)
+
+type Bank struct {
+	balance int //余额
+	// m       sync.Mutex //互斥锁 性能不高
+
+	rWMutex sync.RWMutex //读写锁 读写互斥 读写只能同时进行一种
+	// 适用场景读多写少(微博、B站等咨询服务)
+
+}
+
+//存钱
+func (b *Bank) Deposit(amount int) {
+	// b.m.Lock()
+	// defer b.m.Unlock() //defer语句是函数体中最后执行的语句
+	b.rWMutex.Lock()
+	defer b.rWMutex.Unlock() //defer语句是函数体中最后执行的语句
+	b.balance += amount
+}
+
+//余额
+// func (b *Bank) Balance() int {
+// 	// return b.balance
+// 	b.rWMutex.RLock()
+// 	balance := b.balance
+// 	b.rWMutex.RUnlock()
+// 	return balance
+// }
+func (b *Bank) Balance() (balance int) {
+	// return b.balance
+	b.rWMutex.RLock()
+	balance = b.balance
+	b.rWMutex.RUnlock()
+	return
+}
+func main() {
+	// b := &Bank{}
+	// b.Deposit(1000)
+	// b.Deposit(1000)
+	// b.Deposit(1000)
+	// fmt.Println(b.Balance())
+
+	// var wg sync.WaitGroup
+	// b := &Bank{}
+	// n := 1000
+	// wg.Add(n)
+	// for i := 0; i < n; i++ {
+	// 	go func() {
+	// 		b.Deposit(1000)
+	// 		wg.Done()
+	// 	}()
+	// }
+	// wg.Wait()
+	// fmt.Println(b.Balance()) //不用锁会发生数据竞争
+
+	s1 := []string{"张三"}
+	s2 := []string{"赵四"}
+	s3 := []string{"王五"}
+
+	var m sync.Mutex
+	cond := sync.NewCond(&m) //带锁的条件变量
+
+	go listen("1", s1, cond)
+	go listen("2", s2, cond)
+	go listen("3", s3, cond)
+
+	go broadcast("秒杀开始:", cond)
+
+	//使用ctrl+c可以结束进程
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, os.Interrupt)
+	<-ch
+}
+
+func listen(name string, s []string, c *sync.Cond) {
+	c.L.Lock()
+	c.Wait()
+	fmt.Println(name, "报名：", s)
+	c.L.Unlock()
+}
+
+func broadcast(event string, c *sync.Cond) {
+	time.Sleep(time.Second)
+	c.L.Lock()
+	fmt.Println(event)
+	c.Broadcast()
+	c.L.Unlock()
+}

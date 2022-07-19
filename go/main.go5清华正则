@@ -1,0 +1,23 @@
+package main
+
+import (
+	"fmt"
+	"regexp"
+)
+
+func main() {
+	//正则表达式
+	mobileregex, _ := regexp.Compile("^1[345678][0-9]{9}$") //开头结尾 次数
+	mobileregex1, _ := regexp.Compile("1[345678][0-9]{9}")  // 次数
+	res := mobileregex.MatchString("11999999999")           //匹配         //编译功能提高性能
+	fmt.Println(res)
+	fmt.Println(mobileregex1.FindString("12412413999999999jhew13999999999kj"))        //查找一个 重要的
+	fmt.Println(mobileregex1.FindAllString("12412413999999999jhew13999999999kj", -1)) //查找所有 -1表示到最后
+	// match, _ := regexp.MatchString("[0-9]+$", "13141555a")
+	// fmt.Println(match) //false//匹配或者不匹配
+
+	// match, _ := regexp.MatchString("[0-9]+", "13141555a")//存在数字
+	// fmt.Println(match) //true
+	// match, _ := regexp.MatchString("[0-9]+", "13141555")
+	// fmt.Println(match)//true
+}
