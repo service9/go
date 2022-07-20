@@ -9,6 +9,7 @@ import (
 )
 
 //文件加密
+//急速上传,检测文件是否已上传
 
 func hashSha256File(filePath string) (string, error) {
 	var hashValue string //返回hash字符串
