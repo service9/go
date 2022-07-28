@@ -1,0 +1,60 @@
+{{define "admin/index.html"}}
+<!-- 指定模板名称 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+</head>
+
+<body>
+    <h2>主页 {{.article}}</h2>
+    <h2>主页 {{.article.Title}}</h2>
+    <h2>主页 {{.article.Content}}</h2>
+    <!-- 定义变量 -->
+    {{$a:=.article}}
+    <h3>{{$a}}</h3>
+    <!-- 定义变量 -->
+
+    <!-- 条件判断 -->
+    <!-- eq== ne!= lt< le<= gt> ge>= -->
+    {{if gt $a.Length 80}}
+    <h4>优秀</h4>
+    {{else if gt $a.Length 60}}
+    <h4>及格</h4>
+    {{else}}
+    <h4>不及格</h4>
+    {{end}}
+    <!-- 条件判断 -->
+
+    <!-- 循环遍历 -->
+    <ul>{{range $key,$value:=.slice}}
+        <li>{{$value.Title}}-{{$value.Desc}}-{{$value.Content}}-{{$value.Length}}</li>
+        {{else}}空值 {{end}}
+    </ul>
+    <!-- 循环遍历 -->
+
+    <!-- 解构结构体 -->
+    {{with $a}} {{.Title}}{{.Content}} {{end}}
+    <!-- 解构结构体 -->
+
+    <!-- 预定义函数 -->
+    <!-- len -->
+    <!-- 预定义函数 -->
+
+    <!-- 自定义模板函数 一般返回值是string类型 -->
+    <div>{{.date}}时间戳</div>
+    <!-- <div>{UnixToTime .date}}</div> -->
+    <!-- 自定义模板函数 -->
+
+    <!-- 加载公共模板 -->
+    {{template "public/page_header" .}}
+    <!-- 加载公共模板 -->
+</body>
+
+</html>
+{{end}}

@@ -1,0 +1,75 @@
+{{define "admin/news.html"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    新闻页面
+    <form action="/" method="post">
+        <input type="text" name="username">
+        <input type="text" name="password">
+        <button type="submit">提交</button>
+    </form>
+    <br>
+    <div>单文件上传</div>
+    <form action="/admin/user/add" method="post" enctype="multipart/form-data">
+        <div>
+            用户名<input type="text" name="username">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar" id="">
+        </div>
+        <button type="submit">提交</button>
+    </form>
+    <div>不同名字多文件上传</div>
+    <form action="/admin/user/edit" method="post" enctype="multipart/form-data">
+        <div>
+            用户名<input type="text" name="username">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar1" id="">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar2" id="">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar3" id="">
+        </div>
+        <button type="submit">提交</button>
+    </form>
+    <div>相同名字多文件上传</div>
+    <form action="/admin/user/edits" method="post" enctype="multipart/form-data">
+        <div>
+            用户名<input type="text" name="username">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar" id="">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar" id="">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar" id="">
+        </div>
+        <button type="submit">提交</button>
+    </form>
+    <div>按照日期和时间戳 单文件上传</div>
+    <form action="/admin/user/uploadImg" method="post" enctype="multipart/form-data">
+        <div>
+            用户名<input type="text" name="username">
+        </div>
+        <div>
+            文件选择 <input type="file" name="avatar" id="">
+        </div>
+        <button type="submit">提交</button>
+    </form>
+</body>
+
+</html>
+{{end}}

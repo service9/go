@@ -1,0 +1,15 @@
+package main
+
+import (
+	"gin_gorm_oj/router"
+)
+
+// @title IvanApi Swagger 标题
+// @version 1.0 版本
+// @description IvanApi Service 描述
+// @host localhost:8080
+// @BasePath /
+func main() {
+	r := router.Router()
+	r.Run()
+}

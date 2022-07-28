@@ -1,0 +1,19 @@
+package main
+
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+func main() {
+	router := gin.Default()
+	router.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "%v", "你好啊gin") //状态码 格式化字符串 值
+	})
+	router.GET("/news", func(c *gin.Context) {
+		c.String(200, "%v", "我是新闻") //状态码 格式化字符串 值
+	})
+	//响应数据
+	router.Run() //默认:8080
+}

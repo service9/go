@@ -1,0 +1,19 @@
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+//模板的加载和参数渲染
+
+func main() {
+	router := gin.Default()
+	//配置加载模板的路径
+	router.LoadHTMLGlob("templates/*") //常用的
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index.html", gin.H{
+			"title": "我是后台数据",
+		}) //状态码 模板名称 空接口对象
+	})
+	router.Run() //默认:8080
+}

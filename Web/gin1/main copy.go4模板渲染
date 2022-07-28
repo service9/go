@@ -1,0 +1,45 @@
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+//模板渲染
+type Article struct {
+	Title   string `json:"title"`
+	Desc    string `json:"desc"`
+	Content string `json:"content"`
+	Length  int    `json:"length"`
+}
+
+func main() {
+	router := gin.Default()
+	//配置加载模板的路径
+	router.LoadHTMLGlob("templates/**/*") //常用的
+	router.GET("/", func(c *gin.Context) {
+		a := &Article{
+			Title:   "标题",
+			Desc:    "描述",
+			Content: "内容",
+			Length:  61,
+		}
+		c.HTML(200, "admin/index.html", gin.H{
+			"article": a,
+			"slice": []interface{}{
+				&Article{
+					Title:   "标题",
+					Desc:    "描述",
+					Content: "内容",
+					Length:  61,
+				},
+				&Article{
+					Title:   "标题1",
+					Desc:    "描述",
+					Content: "内容2",
+					Length:  80,
+				},
+			},
+		}) //状态码 模板名称 空接口对象
+	})
+	router.Run() //默认:8080
+}

@@ -1,0 +1,46 @@
+package main
+
+import (
+	"gin1/routers"
+	"html/template"
+	"time"
+
+	"github.com/gin-gonic/gin"
+)
+
+//中间件:匹配路由前后的操作
+//路由中间件
+//法一、直接添加到路由中
+//法二、路由.Use(中间件)
+//中间件和对应控制器之间的数据共享 Set(key,value) Get(key)
+//中间件中使用go协程需要c.Copy()
+
+//自定义的函数 时间戳转换为日期
+func UnixToTime(timestamp int) string {
+	t := time.Unix(int64(timestamp), 0) //ms,μs
+	return t.Format("2006-01-02 15:05:04")
+}
+
+func main() {
+	//创建路由引擎
+	router := gin.Default() //推荐额外加载日志和错误
+	// router := gin.New()
+
+	//自定义模板函数 在加载模板前
+	router.SetFuncMap(template.FuncMap{
+		"UnixToTime": UnixToTime,
+	})
+	//加载模板文件
+	router.LoadHTMLGlob("templates/**/*")
+	//配置静态web目录
+	router.Static("/static", "static")
+	//全局中间件 优先于局部中间件执行
+	// router.Use(func(ctx *gin.Context) {
+	// 	fmt.Println("你是猪")
+	// })
+	//导入路由组的初始化函数
+	routers.DefaultRoutersInit(router)
+	routers.AdminRoutersInit(router)
+	routers.ApiRoutersInit(router)
+	router.Run()
+}

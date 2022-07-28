@@ -1,0 +1,51 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "gin_gorm_oj/docs" // 这个文件夹必须导入 否则会报错
+	"gin_gorm_oj/models"
+)
+
+// @title IvanApi Swagger 标题(必填)
+// @version 1.0 版本(必填)
+// @description IvanApi Service 描述
+// @host localhost:8080
+// @BasePath /
+func main() {
+	r := gin.Default()
+	// docs.SwaggerInfo.BasePath = "/api/v1"
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// v1 := r.Group("/api/v1")
+	// eg := v1.Group("/ops")
+	r.GET("/getbroadcast", GetProblemList)
+	r.GET("/s", GetProblemList)
+	r.Run(":8080")
+}
+
+// GetProblemList
+// @Tags 标签
+// @Summary 获取多个标签
+// @Router /problemList [get]
+func GetProblemList(c *gin.Context) {
+	models.GetProblemList()
+	c.String(http.StatusOK, "GetProblemList")
+}
+
+// @Summary Add a new pet to the store
+// @Description get string by ID
+// @Accept  json
+// @Produce  json
+// @Param   some_id     path    int     true        "Some ID"
+// @Success 200 {string} string	"ok"
+// @Failure 400 {object} web.APIError "We need ID!!"
+// @Failure 404 {object} web.APIError "Can not find ID"
+// @Router /testapi/get-string-by-int/{some_id} [get]
+func GetStringByInt(c *gin.Context) {
+	fmt.Println(123)
+}

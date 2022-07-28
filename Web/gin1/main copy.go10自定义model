@@ -1,0 +1,35 @@
+package main
+
+import (
+	"gin1/models"
+	"gin1/routers"
+	"html/template"
+
+	"github.com/gin-gonic/gin"
+)
+
+//自定义model 公共的方法、工具 m models/utils v templates c controllers
+
+func main() {
+	//创建路由引擎
+	router := gin.Default() //推荐额外加载日志和错误
+	// router := gin.New()
+
+	//自定义模板函数 在加载模板前
+	router.SetFuncMap(template.FuncMap{
+		"UnixToTime": models.UnixToTime,
+	})
+	//加载模板文件
+	router.LoadHTMLGlob("templates/**/*")
+	//配置静态web目录
+	router.Static("/static", "static")
+	//全局中间件 优先于局部中间件执行
+	// router.Use(func(ctx *gin.Context) {
+	// 	fmt.Println("你是猪")
+	// })
+	//导入路由组的初始化函数
+	routers.DefaultRoutersInit(router)
+	routers.AdminRoutersInit(router)
+	routers.ApiRoutersInit(router)
+	router.Run()
+}
